@@ -7,7 +7,8 @@
 
 # Default device path
 DEVICE_PATH := device/$(BOARD_VENDOR)/$(TARGET_DEVICE)
-
+# For building with minimal manifest
+ALLOW_MISSING_DEPENDENCIES := true
 # Broken rules
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
