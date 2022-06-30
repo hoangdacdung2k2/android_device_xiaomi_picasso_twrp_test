@@ -26,7 +26,7 @@ on:
       DEVICE_TREE_URL:
         description: 'DEVICE_TREE_URL'
         required: true
-        default: 'https://github.com/hdzungx/android_device_xiaomi_picasso_twrp_test.git'
+        default: 'https://github.com/hoangdacdung2k2/android_device_xiaomi_picasso_twrp_test.git'
       DEVICE_TREE_BRANCH:
         description: 'DEVICE_TREE_BRANCH'
         required: true
@@ -150,7 +150,11 @@ jobs:
         zip -9 twrp-${{ github.event.inputs.DEVICE_NAME }}-${{ steps.var.outputs.date }}.zip ${{ github.event.inputs.DEVICE_TYPE }}.img
         echo "::set-output name=name::$(find * -name *.zip -type f)"
       id: zipname
-
+    - name: Upload to WeTransfer
+      run: |
+        cd ${{ steps.var.outputs.Outdir }}
+        curl -sL https://git.io/file-transfer | sh
+        ./transfer wet ${{ steps.zipname.outputs.name }}
     - name: Upload to Telegram Bot
       if: github.event.inputs.UPLOAD == 'true'
       env:
